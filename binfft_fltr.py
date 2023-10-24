@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.sparse.linalg import svds
-from scipy.stats import t
+from scipy.stats import chi2
 from infft import *
 
 def validate_data(X,Y,N = 1024,k=2,p=0.05,kernel='sobolev',verbose=True):
@@ -37,20 +37,30 @@ def validate_data(X,Y,N = 1024,k=2,p=0.05,kernel='sobolev',verbose=True):
     U,S,V = svds(Fk,k)
 
     Fkr = U @ np.diag(S) @ V
+    
+    res = []
 
     for ii in range(X.shape[1]):
         Xpred[:,ii] = adjoint(tnom,Fkr[:,ii]) + mn[ii]
         #rslt = ttest_1samp(X[idx[ii],ii],Xpred[idx[ii],ii],axis=0)
-        res = X[idx[ii],ii] - Xpred[idx[ii],ii]
-        s = np.std(res)
-        df = 1 #np.sum(idx[ii])
-        tt = np.divide(np.sqrt(df)*res, s)
-        Xpvls[idx[ii],ii] = t.cdf(tt,df)
+        res.append(Y[idx[ii],ii] - Xpred[idx[ii],ii])
+        # s = np.std(res)
+        # df = 1 #np.sum(idx[ii])
+        # tt = np.divide(np.sqrt(df)*res, s)
+        # Xpvls[idx[ii],ii] = t.cdf(tt,df)
 
         if verbose == True:
             print(f'performing adjoint transform {ii+1} out of {X.shape[1]}')
             
-    return Xpred, Xpvls, Fkr
+    s = np.std(np.concatenate(res))
+    
+    if verbose == True:
+        print("calculating pvals")
+    
+    for ii in range(X.shape[1]):
+        Xpvls[idx[ii],ii] = 1 - chi2.cdf((res[ii]/s) ** 2,1)
+            
+    return Xpred, Xpvls, Fkr, X
     
 def digest_csv(name_of_csv, nan_marker=-9999):
     df = pd.read_csv(name_of_csv)
@@ -73,7 +83,3 @@ def digest_csv(name_of_csv, nan_marker=-9999):
         Y[idx,ii] = Xr[idx,ii]
 
     return X, Y
-
-X,Y = digest_csv('T.Suelo.csv')
-Xpred, Xpvls, Fkr = validate_data(X,Y)
-
