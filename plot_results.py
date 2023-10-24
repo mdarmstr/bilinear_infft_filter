@@ -1,19 +1,20 @@
-from infft import *
+from intrp_infft_1d import *
 from validate import *
 import matplotlib.pyplot as plt
+from binfft_fltr import *
 
 import numpy as np
 
 
 #Script for acquiring and plotting the results.
 
-# X,Y = digest_csv('T.Suelo.csv')
-# Xpred, Xpvls, Fkr, t = validate_data(X,Y)
+X,Y = digest_csv('T.Suelo.csv')
+Xpred, Xpvls, Fkr, t = validate_data(X,Y)
 
-# np.save("Xpred.npy",Xpred)
-# np.save("Xpvls.npy",Xpvls)
-# np.save("Fkr.npy",Fkr)
-# np.save("t.npy",t)
+np.save("Xpred.npy",Xpred)
+np.save("Xpvls.npy",Xpvls)
+np.save("Fkr.npy",Fkr)
+np.save("t.npy",t)
 
 cmap = plt.get_cmap('viridis')
 
