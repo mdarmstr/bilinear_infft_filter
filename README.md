@@ -25,15 +25,20 @@ There are two main functions, `digest_csv` and `validate_data`. The `plot_result
 
 ### Outputs for `digest_csv`
 - `X` an $M \times L$ numpy array of $M$ measurements and $L$ time-series variables. Missing data is labelled as `np.nan`.
-- `Y` an $M \times L$ numpy array of $M$ time points that correspond to $L$ time-series variables. Missing data is indicated as `np.nan`
+- `Y` an $M \times L$ numpy array of $M$ time points that correspond to $L$ time-series variables. Missing data is indicated as `np.nan`.
 
 ### Inputs for `validate_data`
-- `X` from the output of `digest_csv`
-- `Y` from the output of `digest_csv`
+- `X` from the output of `digest_csv`.
+- `Y` from the output of `digest_csv`.
+- `k` _default=2_ for the number of components in the SVD model.
+- `kernel` _default=`sobolev`_ the type of kernel used in the weighted non-uniform interpolative inverse Fast Fourier transform.
+- `verbose` _default=`True`_ controls the terminal output of the model. 
 
 ### Outputs for `valdiate_data`
-- `Xpred` an $M \times L$ numpy array containing the interpolative function for the $o^{th}$ time-series variable
-- `Xpvls` an $M \times L$ numpy array containing the p-values for the $o^{th}$ time-series variable where the data was originally measured. Missing data is indicated as `np.nan`
+- `Xpred` an $M \times L$ numpy array containing the interpolative function for the $o^{th}$ time-series variable.
+- `Xpvls` an $M \times L$ numpy array containing the p-values for the $o^{th}$ time-series variable where the data was originally measured. Missing data is indicated as `np.nan`.
+- `Fkr` the reconstructed $N \times L$ complex numpy array containing the calculated frequencies for the $o \in L$ time-series variables.
+- `X` the original data from the output. 
 
 # Credit
 Michael Sorochan Armstrong (mdarmstr@go.ugr.es) and José Camacho Páez (josecamacho@ugr.es) from the Computational Data Science Lab (CoDaS) at the University of Granada. Please, note that the software is provided "as is" and we do not accept any responsibility or liability. Should you find any bug or have suggestions, please contact the authors. For copyright information, please see the license file.
