@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 from scipy.sparse.linalg import svds
 from scipy.stats import chi2
-from infft import *
+from intrp_infft_1d.intrp_infft_1d import *
 
-def validate_data(X,Y,N = 1024,k=2,p=0.05,kernel='sobolev',verbose=True):
+def validate_data(X,Y,N = 1024,k=2,kernel='sobolev',gma=1e-3,verbose=True):
     
     if kernel == 'sobolev':
-        w = sobk(N,1,2,1e-2)
+        w = sobk(N,1,2,gma)
     elif kernel == 'fejer':
         w = fjr(N)
 
@@ -42,13 +42,8 @@ def validate_data(X,Y,N = 1024,k=2,p=0.05,kernel='sobolev',verbose=True):
 
     for ii in range(X.shape[1]):
         Xpred[:,ii] = adjoint(tnom,Fkr[:,ii]) + mn[ii]
-        #rslt = ttest_1samp(X[idx[ii],ii],Xpred[idx[ii],ii],axis=0)
         res.append(Y[idx[ii],ii] - Xpred[idx[ii],ii])
-        # s = np.std(res)
-        # df = 1 #np.sum(idx[ii])
-        # tt = np.divide(np.sqrt(df)*res, s)
-        # Xpvls[idx[ii],ii] = t.cdf(tt,df)
-
+       
         if verbose == True:
             print(f'performing adjoint transform {ii+1} out of {X.shape[1]}')
             

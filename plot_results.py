@@ -1,10 +1,7 @@
-from intrp_infft_1d import *
-from validate import *
-import matplotlib.pyplot as plt
+from intrp_infft_1d.intrp_infft_1d import *
 from binfft_fltr import *
-
+import matplotlib.pyplot as plt
 import numpy as np
-
 
 #Script for acquiring and plotting the results.
 
@@ -22,12 +19,12 @@ Xpred = np.load("Xpred.npy")
 Xpvls = np.load("Xpvls.npy")
 X = np.load("t.npy")
 
-idy = 5
+idy = 0
 
 df = pd.read_csv('T.Suelo.csv')
 Xr = df.iloc[0:,1:].to_numpy()
 Ln = Xr.shape[0]
-# y = Xr[Xr[:,idy] != -9999, :] doesn't account for even or odd entries, which is a problem
+
 idx = np.invert(np.isnan(X[:,idy]))
 t = np.linspace(-0.5,0.5,Ln,endpoint=False)
 
@@ -40,5 +37,5 @@ plt.plot(t,Xpred[:,idy])
 plt.colorbar()
 plt.xlabel('Normalized time $\in$ [-0.5,0.5)')
 plt.ylabel('Temperature, C')
-plt.title('pvals for microstation idx = 5; cutoff = 0.01')
+plt.title(f'pvals for idx = {idy}; cutoff = 0.01')
 plt.show()
