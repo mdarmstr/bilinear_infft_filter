@@ -1,5 +1,5 @@
 from intrp_infft_1d.intrp_infft_1d import *
-from binfft_fltr import *
+from bilinear_nfft_filter import *
 import matplotlib.pyplot as plt
 import numpy as np
 
