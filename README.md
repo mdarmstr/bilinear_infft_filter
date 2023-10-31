@@ -15,6 +15,8 @@ $$\hat{H}_k = U \Sigma V^H$$
 
 Where $U$ is an $M \times k$ complex matrix of scores, $\Sigma$ is a real-valued $k \times k$ diagonal matrix, and $V^H$ is the Hermitian transpose of the $L \times k$ loadings. The reconstructed data $\hat{Y}$ is recovered using the adjoint transform, represented algebraically as: $A^H$ for each $\hat{y} \in M,1$ for each $\hat{h}_k \in N,1$.
 
+The _p-values_ are a relative measure of statistical agreement with the interpolated signal function. They are derived from the inverser cumulative distribution function for the $\chi^2$ distribution with one degree of freedom, with the expected value as the interpolative function normalised by the standard deviation calculated for the entire dataset.
+
 ## Instructions
 
 There are two main functions, `digest_csv` and `validate_data`. The `plot_results` function offers a basic usage case for the sake of example.
