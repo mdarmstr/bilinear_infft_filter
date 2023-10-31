@@ -7,7 +7,7 @@ setup(name="bilinear_infft_filter",
       author="Michael Sorochan Armstrong",
       author_email="mdarmstr(at)go.ugr.es",
       url='https://github.com/mdarmstr/bilinear_infft_filter',
-      packages=['bilinear_infft_filter'],
+      packages=['bilinear_infft_filter/'],
       install_requires=[
             'nfft',
             'scipy',
