@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(name="bilinear_infft_filter",
       version="0.0.1",
-      description="spectral filtering for irregular time-series data"
+      description="spectral filtering for irregular time-series data",
       license='GNU v3.0',
       author="Michael Sorochan Armstrong",
       author_email="mdarmstr(at)go.ugr.es",
